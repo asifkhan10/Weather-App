@@ -1,1 +1,1 @@
-web: gunicorn app:app
+mywroker : Python app.py
