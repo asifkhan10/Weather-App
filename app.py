@@ -14,6 +14,9 @@ from timezonefinder import TimezoneFinder
 from datetime import datetime
 import requests
 import pytz
+from dotenv import load_dotenv
+import os
+
 
 root=Tk()
 root.title("Weather App Project")
@@ -24,6 +27,9 @@ root.resizable(False,False)
 
 def getWeather():
     try:
+        
+        load_dotenv()
+
         city=textfield.get()
 
         geolocator=Nominatim(user_agent="geoapiExercises")
@@ -37,7 +43,9 @@ def getWeather():
         clock.config(text=current_time)
         name.config(text="Current Timing")
 
-        api="https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=e95e2a6a02635afb15e540b8db591baa"
+        load_dotenv()
+
+        api=f"https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid={os.getenv('api_key')}"
 
         json_data=requests.get(api).json()
         condition=json_data['weather'][0]['main']
